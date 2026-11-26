@@ -67,6 +67,31 @@ def parse_cases(raw):
 
 MODEL = 'gemini-3.5-flash-lite'
 
+import threading
+
+@st.cache_resource
+def api_usage():
+    return {"day": None, "count": 0, "last": None,
+            "lock": threading.Lock()}
+
+def reserve_api_attempt():
+    state = api_usage()
+    with state["lock"]:
+        day = time.strftime("%Y-%m-%d", time.gmtime())
+        now = time.monotonic()
+        if state["day"] != day:
+            state["day"] = day
+            state["count"] = 0
+        if state["count"] >= 20:
+            st.warning("Daily AI limit reached. Use Rule-based (V1).")
+            return False
+        if state["last"] is not None and now - state["last"] < 10:
+            st.warning("Please wait 10 seconds between AI attempts.")
+            return False
+        state["count"] += 1
+        state["last"] = now
+        return True
+
 def ask_ai(prompt):
  key = os.getenv('GEMINI_API_KEY')
  if not key:
@@ -78,6 +103,8 @@ def ask_ai(prompt):
  payload = {'contents':[{'parts':[{'text':prompt}]}], 'generationConfig':{'maxOutputTokens':4096}}
  req = urllib.request.Request('https://generativelanguage.googleapis.com/v1beta/models/'+MODEL+':generateContent', data=json.dumps(payload).encode(), headers={'x-goog-api-key':key,'Content-Type':'application/json'})
  for attempt in range(3):
+  if not reserve_api_attempt():
+   return None
   try:
    with urllib.request.urlopen(req, timeout=60) as response:
     data=json.load(response)
