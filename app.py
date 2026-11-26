@@ -132,7 +132,7 @@ if mode=='Generative AI':
   requirement=st.text_area('Requirement / acceptance criteria',value=SAMPLES['Login & Authentication'],height=120)
   raw=st.text_area('Existing scenarios (one per line)',value='Verify valid login\nVerify invalid password',height=140)
   valid=bool(requirement.strip())
-  prompt='Map requirements to numbered existing test scenarios. Identify covered, partial and missing requirements, explain evidence, propose missing cases and label assumptions. Do not claim execution or calculate unsupported coverage percentages. Requirement: '+json.dumps(requirement)+' Scenarios: '+json.dumps(list(enumerate(parse_cases(raw),1)))
+  prompt='Map requirements to numbered existing test scenarios. Classify each requirement as Covered, Partial or Missing. Mark Covered only when all stated conditions are explicitly tested. Mark Partial when only a subset is tested. An incorrect password alone is partial coverage of a general invalid credentials requirement. Never use assumptions to upgrade partial coverage to full coverage. Explain evidence, propose missing cases and label assumptions. Do not claim execution or calculate unsupported coverage percentages. Requirement: '+json.dumps(requirement)+' Scenarios: '+json.dumps(list(enumerate(parse_cases(raw),1)))
  else:
   total=st.number_input('Total planned test cases',min_value=0,value=100,step=1)
   passed=st.number_input('Passed',min_value=0,value=70,step=1)
