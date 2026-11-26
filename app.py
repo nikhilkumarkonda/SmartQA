@@ -13,6 +13,10 @@ st.set_page_config(page_title='SmartQA | Quality Engineering Workspace', page_ic
 st.markdown('''<style>.block-container{padding-top:2rem;max-width:1100px}h1{color:#164d8d}.stButton>button[kind="primary"]{background:#1764bb}</style>''', unsafe_allow_html=True)
 st.title('🧪 SmartQA')
 st.caption('Quality Engineering Workspace • Version 2 | Gemini AI + rule-based tools')
+st.markdown(
+    "<div style='font-size:14px;color:#64748b;margin-top:-8px;margin-bottom:12px;'>Created & Developed by <b>Nikhil Kumar Konda</b></div>",
+    unsafe_allow_html=True
+)
 st.info('Portfolio demo only. Use fictional data; AI suggestions require human QA review.')
 
 SAMPLES = {

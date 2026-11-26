@@ -50,3 +50,21 @@ Designed for deployment through Streamlit Community Cloud with securely configur
 SmartQA is a portfolio demonstration, not a production-certified testing platform. AI responses may contain inaccuracies. API availability and usage are subject to provider limits.
 
 The application does not execute actual tests, connect to enterprise test management systems, or provide automated
+
+## Created & Developed By
+
+**Nikhil Kumar Konda**
+
+QA Professional | AI-Powered Quality Engineering
+
+SmartQA V2 is a portfolio project demonstrating the practical application of Generative AI in Quality Engineering.
+
+### Live Application
+https://smartapp-nikhilkumarkonda.streamlit.app/
+
+### Technologies
+- Python
+- Streamlit
+- Google Gemini API
+- Generative AI
+- Software Quality Engineering
